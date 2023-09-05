@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Каталог";
+}
+<h2 style="text-align: center; color:darksalmon">Каталог</h2> <!--@ViewBag.Title.-->
+
+
+<div class="class1" style="margin: 0 auto; text-align:center;">
+    <div class="col-md-6" style=" font-size: 20px; align-content: center;">
+        <button class="scale" onclick="location.href='@Url.Action("Index", "Выставка")';return false;">
+            <img src="~/images/Кнопка_выставка.jpg" alt="Кнопка" height="450" width="450">
+            <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size:40px; color:white; text-shadow:3px 4px 5px #000">Выставки</div>
+        </button>
+        <p>
+            В данном разделе собрана вся необходимая информация о прошедших и будущих выставках <br> нашей галереи.
+        </p>
+    </div>
+
+
+    <div class="col-md-6" style="font-size: 20px; align-content: center;" >
+        <button class="scale" onclick="location.href='@Url.Action("Index", "Экспонат")';return false;">
+            <img src="~/images/Кнопка_каталог.jpg" alt="Кнопка" height="450" width="450">
+            <div style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); font-size:40px; color:white; text-shadow:3px 4px 5px #000">Экспонаты</div>
+        </button>
+        <p>
+            Ознакомиться со списком экспонатов можно здесь.
+        </p>
+
+    </div>
+</div>

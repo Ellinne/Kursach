@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="https://www.favicon.by/download.php?favicon=619b512568863.ico"
+          type="image/x-icon">
+    <link rel="stylesheet" href="~/StyleSheet.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <title>@ViewBag.Title - приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="body">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> <!--Кнопки панели навигации-->
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("Artiste", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("О нас", "О_нас", "Home")</li>
+                    @if (Session["UserID"] != null)
+                    {
+                        <li>@Html.ActionLink("Каталог", "Каталог", "Home")</li>
+                        <li>@Html.ActionLink("Сотрудничество", "Сотрудничество", "Home")</li>
+                    }
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["UserID"] == null)
+                    {
+                        <li>@Html.ActionLink("Войти", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Регистрация", "Reg", "Home")</li>
+                    }
+                    @if (Session["UserID"] != null)
+                    {
+                        <li>@Html.ActionLink("Приветствуем, " + @Session["Name"].ToString(), "LogOut", "Home")</li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+    </div>
+    @if (Session["UserID"] != null)
+    {
+        <footer class="styletest">
+            <div>
+
+                @Html.ActionLink("Список экспонатов", "Index", "Экспонат") &emsp;
+                @Html.ActionLink("Список выставок", "Index", "Выставка")    &emsp;
+                @Html.ActionLink("Список клиентов", "Index", "Клиент")&emsp;
+                @Html.ActionLink("Договоры с авторами", "Index", "Договор_с_автором")&emsp;
+                @Html.ActionLink("Договоры на продажу", "Index", "Договор_на_продажу")
+
+
+            </div>
+            <p>@DateTime.Now.Year © Петрова А.В.</p>
+        </footer>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<GallerySite.Models.Договор_с_автором>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center;">Договоры с авторами</h2>
+@if (Session["Rights"].Equals("admin"))
+{
+<p>
+    @Html.ActionLink("Добавить договор", "Create")
+</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Цена_оплаты_услуг)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Клиент.Фамилия)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Экспонат1.Наименование)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Цена_оплаты_услуг)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Клиент.Фамилия)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Экспонат1.Наименование)
+    </td>
+    @if (Session["Rights"].Equals("admin"))
+    {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Номер }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Номер }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Номер })
+        </td>
+    }
+    </tr>
+}
+
+</table>

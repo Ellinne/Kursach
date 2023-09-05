@@ -1,0 +1,66 @@
+﻿@model GallerySite.Models.Экспонат
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Экспонат</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Вид_искусства)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Вид_искусства)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Наименование)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Наименование)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Изображение)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Изображение)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Срок_экспонирования)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Срок_экспонирования)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Статус)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Статус)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Выставка.Название_выставки)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Выставка.Название_выставки)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Код_экспоната }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

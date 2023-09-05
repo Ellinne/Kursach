@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Сотрудничество";
+}
+
+<h2 style="text-align: center; color:darksalmon; margin-bottom:50px;">Сотрудничество</h2>
+<div style="display: flex; flex-direction: column; margin: 0 auto; text-align: center; width: 800px">
+
+    <div style="height:450px;">
+        <div class="col-md-6" >
+            <p style="color:mediumslateblue; font-size:25px;">
+                Наши клиенты <br>
+                </p>
+            <p>
+                Здесь содержатся сведения обо всех авторах произведений и покупателях, пользовавшихся услугами галереи.
+            </p>
+        </div>
+        <div class="col-md-6" style="background-image: url(/images/Clients.jpg); height:400px; background-size:400px 400px;">
+            <button class="btnsotr" style="        margin: 75% 0% 0% 75%;
+        width: 100px;
+        height: 100px;
+        background: url(/images/ToRight.png);
+        background-size: cover;
+        border: none;" onclick="location.href='@Url.Action("Index", "Клиент")';return false;">
+            </button>
+        </div>
+
+    </div>
+    <!------------------------------------------------------------------------------------------------->
+    <div style="height:450px;">
+        <div class="col-md-6" style="background-image: url(/images/Author2.png); height:400px; background-size:400px 400px;">
+            <button class="btnsotr" style="        margin: 75% 0% 0% 75%;
+        width: 100px;
+        height: 100px;
+        background: url(/images/ToRight.png);
+        background-size: cover;
+        border: none;" onclick="location.href='@Url.Action("Index", "Договор_с_автором")';return false;">
+            </button>
+        </div>
+        <div class="col-md-6">
+            <p style="color:mediumslateblue; font-size:25px;">
+                Договоры с авторами <br>
+            </p>
+            <p>
+                В данном разделе находится персональная информация об авторах, установленном сроке экспонирования произведения, а также о самом произведении.
+            </p>
+        </div>
+
+
+    </div>
+    <!------------------------------------------------------------------------------------------------->
+    <div style="height:450px;">
+        <div class="col-md-6">
+            <p style="color:mediumslateblue; font-size:25px;">
+                Договоры на продажу
+            </p>
+        </div>
+        <div class="col-md-6" style="background-image: url(/images/Sale.jpg); height:400px; background-size:400px 400px;">
+            <button class="btnsotr" style="        margin: 75% 0% 0% 75%;
+        width: 100px;
+        height: 100px;
+        background: url(/images/ToRight.png);
+        background-size: cover;
+        border: none;" onclick="location.href='@Url.Action("Index", "Договор_на_продажу")';return false;">
+            </button>
+        </div>
+
+    </div>
+</div>
+
+

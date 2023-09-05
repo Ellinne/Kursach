@@ -1,0 +1,84 @@
+﻿@model IEnumerable<GallerySite.Models.Клиент>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center;">Клиенты</h2>
+@if (Session["Rights"].Equals("admin"))
+{
+    <p>
+        @Html.ActionLink("Добавить нового клиента", "Create")
+    </p>
+}
+    @using (Html.BeginForm())
+    {
+        <p>
+            Искать по фамилии: @Html.TextBox("SearchString")
+            <input type="submit" value="Найти" />
+        </p>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Статус", "Index", new { sortOrder = ViewBag.NameSortParm })
+                <!--@Html.DisplayNameFor(model => model.Статус)-->
+            </th>
+            <th>
+                @Html.ActionLink("Фамилия", "Index", new { sortOrder = ViewBag.NameSortParm })
+                <!--@Html.DisplayNameFor(model => model.Фамилия)-->
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Имя)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Отчество)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Телефон)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Серия_паспорта)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Номер_паспорта)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Статус)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Фамилия)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Имя)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Отчество)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Телефон)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Серия_паспорта)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Номер_паспорта)
+        </td>
+        @if (Session["Rights"].Equals("admin"))
+        {
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.Код_клиента }) |
+                @Html.ActionLink("Подробности", "Details", new { id = item.Код_клиента }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Код_клиента })
+            </td>
+        }
+        </tr>
+        }
+
+    </table>

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<GallerySite.Models.Договор_на_продажу>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center;">Договоры на продажу</h2>
+
+@if (Session["Rights"].Equals("admin"))
+{<p>
+        @Html.ActionLink("Добавить договор", "Create")
+    </p>
+
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Цена_экспоната)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Налог)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Комиссия)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Доход_галереи)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Гонорар)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Экспонат1.Наименование)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Клиент.Фамилия)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Цена_экспоната)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Налог)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Комиссия)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Доход_галереи)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Гонорар)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Экспонат1.Наименование)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Клиент.Фамилия)
+            </td>
+            @if (Session["Rights"].Equals("admin"))
+            {
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.Код_договора }) |
+                    @Html.ActionLink("Подробности", "Details", new { id = item.Код_договора }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Код_договора })
+                </td>
+            }
+        </tr>
+    }
+
+</table>

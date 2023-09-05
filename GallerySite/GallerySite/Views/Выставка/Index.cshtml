@@ -1,0 +1,54 @@
+﻿@model IEnumerable<GallerySite.Models.Выставка>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center;">Выставки</h2>
+
+@if (Session["Rights"].Equals("admin"))
+{<p>
+    @Html.ActionLink("Добавить выставку", "Create")
+</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Название_выставки", "Index", new { sortOrder = ViewBag.NameSortParm })
+            <!--@Html.DisplayNameFor(model => model.Название_выставки)-->
+        </th>
+        <th>
+            @Html.ActionLink("Дата_начала", "Index", new { sortOrder = ViewBag.DateSortParm })
+
+            <!--@Html.DisplayNameFor(model => model.Дата_начала)-->
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Дата_окончания)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Название_выставки)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Дата_начала)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Дата_окончания)
+    </td>
+    @if (Session["Rights"].Equals("admin"))
+    {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Код_выставки }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Код_выставки }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Код_выставки })
+        </td>
+        }
+    </tr>
+    }
+
+</table>

@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище DataBaseModel1" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="UsersASP">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" />
+          <Property Name="username" Type="nchar" MaxLength="20" />
+          <Property Name="date_reg" Type="date" />
+        </EntityType>
+        <EntityType Name="Выставка">
+          <Key>
+            <PropertyRef Name="Код_выставки" />
+          </Key>
+          <Property Name="Код_выставки" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название_выставки" Type="nvarchar" MaxLength="30" />
+          <Property Name="Дата_начала" Type="date" />
+          <Property Name="Дата_окончания" Type="date" />
+        </EntityType>
+        <EntityType Name="Договор_на_продажу">
+          <Key>
+            <PropertyRef Name="Код_договора" />
+          </Key>
+          <Property Name="Код_договора" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Экспонат" Type="int" />
+          <Property Name="Цена_экспоната" Type="money" />
+          <Property Name="Покупатель" Type="int" />
+          <Property Name="Налог" Type="money" />
+          <Property Name="Комиссия" Type="int" />
+          <Property Name="Доход_галереи" Type="money" />
+          <Property Name="Гонорар" Type="money" />
+        </EntityType>
+        <EntityType Name="Договор_с_автором">
+          <Key>
+            <PropertyRef Name="Номер" />
+          </Key>
+          <Property Name="Номер" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Автор" Type="int" />
+          <Property Name="Экспонат" Type="int" />
+          <Property Name="Цена_оплаты_услуг" Type="money" />
+        </EntityType>
+        <EntityType Name="Клиент">
+          <Key>
+            <PropertyRef Name="Код_клиента" />
+          </Key>
+          <Property Name="Код_клиента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Фамилия" Type="nchar" MaxLength="20" />
+          <Property Name="Имя" Type="nchar" MaxLength="20" />
+          <Property Name="Отчество" Type="nchar" MaxLength="20" />
+          <Property Name="Статус" Type="nchar" MaxLength="20" />
+          <Property Name="Телефон" Type="nchar" MaxLength="10" />
+          <Property Name="Серия_паспорта" Type="nchar" MaxLength="10" />
+          <Property Name="Номер_паспорта" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Экспонат">
+          <Key>
+            <PropertyRef Name="Код экспоната" />
+          </Key>
+          <Property Name="Код экспоната" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование" Type="nvarchar" MaxLength="30" />
+          <Property Name="Вид искусства" Type="nvarchar" MaxLength="20" />
+          <Property Name="Изображение" Type="nvarchar" MaxLength="50" />
+          <Property Name="Срок экспонирования" Type="date" />
+          <Property Name="Статус" Type="nvarchar" MaxLength="15" />
+          <Property Name="Код выставки" Type="int" />
+        </EntityType>
+        <Association Name="F2_Договор_на_продажу_ToTable">
+          <End Role="Экспонат" Type="Self.Экспонат" Multiplicity="0..1" />
+          <End Role="Договор_на_продажу" Type="Self.Договор_на_продажу" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Экспонат">
+              <PropertyRef Name="Код экспоната" />
+            </Principal>
+            <Dependent Role="Договор_на_продажу">
+              <PropertyRef Name="Экспонат" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Экспонат_ToTable">
+          <End Role="Выставка" Type="Self.Выставка" Multiplicity="0..1" />
+          <End Role="Экспонат" Type="Self.Экспонат" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Выставка">
+              <PropertyRef Name="Код_выставки" />
+            </Principal>
+            <Dependent Role="Экспонат">
+              <PropertyRef Name="Код выставки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK1_Договор_на_продажу_ToTable">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Договор_на_продажу" Type="Self.Договор_на_продажу" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Договор_на_продажу">
+              <PropertyRef Name="Покупатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK1_Договор_с_автором_ToTable">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Договор_с_автором" Type="Self.Договор_с_автором" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Договор_с_автором">
+              <PropertyRef Name="Автор" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK2_Договор_на_продажу_ToTable">
+          <End Role="Экспонат" Type="Self.Экспонат" Multiplicity="0..1" />
+          <End Role="Договор_с_автором" Type="Self.Договор_с_автором" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Экспонат">
+              <PropertyRef Name="Код экспоната" />
+            </Principal>
+            <Dependent Role="Договор_с_автором">
+              <PropertyRef Name="Экспонат" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Insert_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище DataBaseModel1Container">
+          <EntitySet Name="UsersASP" EntityType="Self.UsersASP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Выставка" EntityType="Self.Выставка" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Договор_на_продажу" EntityType="Self.Договор_на_продажу" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Договор_с_автором" EntityType="Self.Договор_с_автором" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Клиент" EntityType="Self.Клиент" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Экспонат" EntityType="Self.Экспонат" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="F2_Договор_на_продажу_ToTable" Association="Self.F2_Договор_на_продажу_ToTable">
+            <End Role="Экспонат" EntitySet="Экспонат" />
+            <End Role="Договор_на_продажу" EntitySet="Договор_на_продажу" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Экспонат_ToTable" Association="Self.FK_Экспонат_ToTable">
+            <End Role="Выставка" EntitySet="Выставка" />
+            <End Role="Экспонат" EntitySet="Экспонат" />
+          </AssociationSet>
+          <AssociationSet Name="FK1_Договор_на_продажу_ToTable" Association="Self.FK1_Договор_на_продажу_ToTable">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Договор_на_продажу" EntitySet="Договор_на_продажу" />
+          </AssociationSet>
+          <AssociationSet Name="FK1_Договор_с_автором_ToTable" Association="Self.FK1_Договор_с_автором_ToTable">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Договор_с_автором" EntitySet="Договор_с_автором" />
+          </AssociationSet>
+          <AssociationSet Name="FK2_Договор_на_продажу_ToTable" Association="Self.FK2_Договор_на_продажу_ToTable">
+            <End Role="Экспонат" EntitySet="Экспонат" />
+            <End Role="Договор_с_автором" EntitySet="Договор_с_автором" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataBaseModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="UsersASP">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="date_reg" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Выставка">
+          <Key>
+            <PropertyRef Name="Код_выставки" />
+          </Key>
+          <Property Name="Код_выставки" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_выставки" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Дата_начала" Type="DateTime" Precision="0" />
+          <Property Name="Дата_окончания" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Экспонат" Relationship="Self.FK_Экспонат_ToTable" FromRole="Выставка" ToRole="Экспонат" />
+        </EntityType>
+        <EntityType Name="Договор_на_продажу">
+          <Key>
+            <PropertyRef Name="Код_договора" />
+          </Key>
+          <Property Name="Код_договора" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Экспонат" Type="Int32" />
+          <Property Name="Цена_экспоната" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Покупатель" Type="Int32" />
+          <Property Name="Налог" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Комиссия" Type="Int32" />
+          <Property Name="Доход_галереи" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Гонорар" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Экспонат1" Relationship="Self.F2_Договор_на_продажу_ToTable" FromRole="Договор_на_продажу" ToRole="Экспонат" />
+          <NavigationProperty Name="Клиент" Relationship="Self.FK1_Договор_на_продажу_ToTable" FromRole="Договор_на_продажу" ToRole="Клиент" />
+        </EntityType>
+        <EntityType Name="Договор_с_автором">
+          <Key>
+            <PropertyRef Name="Номер" />
+          </Key>
+          <Property Name="Номер" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Автор" Type="Int32" />
+          <Property Name="Экспонат" Type="Int32" />
+          <Property Name="Цена_оплаты_услуг" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Клиент" Relationship="Self.FK1_Договор_с_автором_ToTable" FromRole="Договор_с_автором" ToRole="Клиент" />
+          <NavigationProperty Name="Экспонат1" Relationship="Self.FK2_Договор_на_продажу_ToTable" FromRole="Договор_с_автором" ToRole="Экспонат" />
+        </EntityType>
+        <EntityType Name="Клиент">
+          <Key>
+            <PropertyRef Name="Код_клиента" />
+          </Key>
+          <Property Name="Код_клиента" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Фамилия" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Имя" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Отчество" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Статус" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Телефон" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Серия_паспорта" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Номер_паспорта" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Договор_на_продажу" Relationship="Self.FK1_Договор_на_продажу_ToTable" FromRole="Клиент" ToRole="Договор_на_продажу" />
+          <NavigationProperty Name="Договор_с_автором" Relationship="Self.FK1_Договор_с_автором_ToTable" FromRole="Клиент" ToRole="Договор_с_автором" />
+        </EntityType>
+        <EntityType Name="Экспонат">
+          <Key>
+            <PropertyRef Name="Код_экспоната" />
+          </Key>
+          <Property Name="Код_экспоната" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Наименование" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Вид_искусства" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Изображение" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Срок_экспонирования" Type="DateTime" Precision="0" />
+          <Property Name="Статус" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Код_выставки" Type="Int32" />
+          <NavigationProperty Name="Выставка" Relationship="Self.FK_Экспонат_ToTable" FromRole="Экспонат" ToRole="Выставка" />
+          <NavigationProperty Name="Договор_на_продажу" Relationship="Self.F2_Договор_на_продажу_ToTable" FromRole="Экспонат" ToRole="Договор_на_продажу" />
+          <NavigationProperty Name="Договор_с_автором" Relationship="Self.FK2_Договор_на_продажу_ToTable" FromRole="Экспонат" ToRole="Договор_с_автором" />
+        </EntityType>
+        <Association Name="FK_Экспонат_ToTable">
+          <End Role="Выставка" Type="Self.Выставка" Multiplicity="0..1" />
+          <End Role="Экспонат" Type="Self.Экспонат" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Выставка">
+              <PropertyRef Name="Код_выставки" />
+            </Principal>
+            <Dependent Role="Экспонат">
+              <PropertyRef Name="Код_выставки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="F2_Договор_на_продажу_ToTable">
+          <End Role="Экспонат" Type="Self.Экспонат" Multiplicity="0..1" />
+          <End Role="Договор_на_продажу" Type="Self.Договор_на_продажу" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Экспонат">
+              <PropertyRef Name="Код_экспоната" />
+            </Principal>
+            <Dependent Role="Договор_на_продажу">
+              <PropertyRef Name="Экспонат" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK1_Договор_на_продажу_ToTable">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Договор_на_продажу" Type="Self.Договор_на_продажу" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Договор_на_продажу">
+              <PropertyRef Name="Покупатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK1_Договор_с_автором_ToTable">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Договор_с_автором" Type="Self.Договор_с_автором" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="Код_клиента" />
+            </Principal>
+            <Dependent Role="Договор_с_автором">
+              <PropertyRef Name="Автор" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK2_Договор_на_продажу_ToTable">
+          <End Role="Экспонат" Type="Self.Экспонат" Multiplicity="0..1" />
+          <End Role="Договор_с_автором" Type="Self.Договор_с_автором" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Экспонат">
+              <PropertyRef Name="Код_экспоната" />
+            </Principal>
+            <Dependent Role="Договор_с_автором">
+              <PropertyRef Name="Экспонат" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsersASP" EntityType="Self.UsersASP" />
+          <EntitySet Name="Выставка" EntityType="Self.Выставка" />
+          <EntitySet Name="Договор_на_продажу" EntityType="Self.Договор_на_продажу" />
+          <EntitySet Name="Договор_с_автором" EntityType="Self.Договор_с_автором" />
+          <EntitySet Name="Клиент" EntityType="Self.Клиент" />
+          <EntitySet Name="Экспонат" EntityType="Self.Экспонат" />
+          <AssociationSet Name="FK_Экспонат_ToTable" Association="Self.FK_Экспонат_ToTable">
+            <End Role="Выставка" EntitySet="Выставка" />
+            <End Role="Экспонат" EntitySet="Экспонат" />
+          </AssociationSet>
+          <AssociationSet Name="F2_Договор_на_продажу_ToTable" Association="Self.F2_Договор_на_продажу_ToTable">
+            <End Role="Экспонат" EntitySet="Экспонат" />
+            <End Role="Договор_на_продажу" EntitySet="Договор_на_продажу" />
+          </AssociationSet>
+          <AssociationSet Name="FK1_Договор_на_продажу_ToTable" Association="Self.FK1_Договор_на_продажу_ToTable">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Договор_на_продажу" EntitySet="Договор_на_продажу" />
+          </AssociationSet>
+          <AssociationSet Name="FK1_Договор_с_автором_ToTable" Association="Self.FK1_Договор_с_автором_ToTable">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Договор_с_автором" EntitySet="Договор_с_автором" />
+          </AssociationSet>
+          <AssociationSet Name="FK2_Договор_на_продажу_ToTable" Association="Self.FK2_Договор_на_продажу_ToTable">
+            <End Role="Экспонат" EntitySet="Экспонат" />
+            <End Role="Договор_с_автором" EntitySet="Договор_с_автором" />
+          </AssociationSet>
+          <FunctionImport Name="Insert_User" ReturnType="Collection(Int32)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DataBaseModel1Container" CdmEntityContainer="DataBaseEntities">
+          <EntitySetMapping Name="UsersASP">
+            <EntityTypeMapping TypeName="DataBaseModel1.UsersASP">
+              <MappingFragment StoreEntitySet="UsersASP">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="date_reg" ColumnName="date_reg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Выставка">
+            <EntityTypeMapping TypeName="DataBaseModel1.Выставка">
+              <MappingFragment StoreEntitySet="Выставка">
+                <ScalarProperty Name="Код_выставки" ColumnName="Код_выставки" />
+                <ScalarProperty Name="Название_выставки" ColumnName="Название_выставки" />
+                <ScalarProperty Name="Дата_начала" ColumnName="Дата_начала" />
+                <ScalarProperty Name="Дата_окончания" ColumnName="Дата_окончания" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Договор_на_продажу">
+            <EntityTypeMapping TypeName="DataBaseModel1.Договор_на_продажу">
+              <MappingFragment StoreEntitySet="Договор_на_продажу">
+                <ScalarProperty Name="Код_договора" ColumnName="Код_договора" />
+                <ScalarProperty Name="Экспонат" ColumnName="Экспонат" />
+                <ScalarProperty Name="Цена_экспоната" ColumnName="Цена_экспоната" />
+                <ScalarProperty Name="Покупатель" ColumnName="Покупатель" />
+                <ScalarProperty Name="Налог" ColumnName="Налог" />
+                <ScalarProperty Name="Комиссия" ColumnName="Комиссия" />
+                <ScalarProperty Name="Доход_галереи" ColumnName="Доход_галереи" />
+                <ScalarProperty Name="Гонорар" ColumnName="Гонорар" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Договор_с_автором">
+            <EntityTypeMapping TypeName="DataBaseModel1.Договор_с_автором">
+              <MappingFragment StoreEntitySet="Договор_с_автором">
+                <ScalarProperty Name="Номер" ColumnName="Номер" />
+                <ScalarProperty Name="Автор" ColumnName="Автор" />
+                <ScalarProperty Name="Экспонат" ColumnName="Экспонат" />
+                <ScalarProperty Name="Цена_оплаты_услуг" ColumnName="Цена_оплаты_услуг" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Клиент">
+            <EntityTypeMapping TypeName="DataBaseModel1.Клиент">
+              <MappingFragment StoreEntitySet="Клиент">
+                <ScalarProperty Name="Код_клиента" ColumnName="Код_клиента" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="Серия_паспорта" ColumnName="Серия_паспорта" />
+                <ScalarProperty Name="Номер_паспорта" ColumnName="Номер_паспорта" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Экспонат">
+            <EntityTypeMapping TypeName="DataBaseModel1.Экспонат">
+              <MappingFragment StoreEntitySet="Экспонат">
+                <ScalarProperty Name="Код_экспоната" ColumnName="Код экспоната" />
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+                <ScalarProperty Name="Вид_искусства" ColumnName="Вид искусства" />
+                <ScalarProperty Name="Изображение" ColumnName="Изображение" />
+                <ScalarProperty Name="Срок_экспонирования" ColumnName="Срок экспонирования" />
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
+                <ScalarProperty Name="Код_выставки" ColumnName="Код выставки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Insert_User" FunctionName="Хранилище DataBaseModel1.Insert_User" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

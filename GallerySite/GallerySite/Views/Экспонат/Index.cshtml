@@ -1,0 +1,79 @@
+﻿@model IEnumerable<GallerySite.Models.Экспонат>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" type="text/css" href="~/StyleSheet.css">
+<h2 style="text-align:center;">Экспонаты</h2>
+@if (Session["Rights"].Equals("admin"))
+{
+    <p>
+        @Html.ActionLink("Добавить экспонат", "Create")
+    </p>
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <p>
+        Искать по наименованию: @Html.TextBox("SearchString")
+        <input type="submit" value="Найти" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Вид_искусства)
+        </th>
+        <th>
+            @Html.ActionLink("Наименование", "Index", new { sortOrder = ViewBag.NameSortParm })
+            <!--Html.DisplayNameFor(model => model.Наименование)-->
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Изображение)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Срок_экспонирования)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Статус)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Выставка.Название_выставки)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Вид_искусства)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Наименование)
+            </td>
+            <td>
+                <!--@Html.DisplayFor(modelItem => item.Изображение)-->
+                <img src="@Url.Content(item.Изображение)" width="50" height="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Срок_экспонирования)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Статус)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Выставка.Название_выставки)
+            </td>
+            @if (Session["Rights"].Equals("admin"))
+            {
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.Код_экспоната }) |
+                    @Html.ActionLink("Подробности", "Details", new { id = item.Код_экспоната }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Код_экспоната })
+                </td>
+            }
+        </tr>
+    }
+
+</table>

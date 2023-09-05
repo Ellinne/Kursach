@@ -1,0 +1,42 @@
+﻿@model GallerySite.Models.Выставка
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Выставка</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Название_выставки)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Название_выставки)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Дата_начала)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_начала)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Дата_окончания)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_окончания)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Код_выставки }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

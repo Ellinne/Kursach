@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище DataBaseModel1Container" CdmEntityContainer="DataBaseEntities">
+    <EntitySetMapping Name="UsersASP">
+      <EntityTypeMapping TypeName="DataBaseModel1.UsersASP">
+        <MappingFragment StoreEntitySet="UsersASP">
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="date_reg" ColumnName="date_reg" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Выставка">
+      <EntityTypeMapping TypeName="DataBaseModel1.Выставка">
+        <MappingFragment StoreEntitySet="Выставка">
+          <ScalarProperty Name="Код_выставки" ColumnName="Код_выставки" />
+          <ScalarProperty Name="Название_выставки" ColumnName="Название_выставки" />
+          <ScalarProperty Name="Дата_начала" ColumnName="Дата_начала" />
+          <ScalarProperty Name="Дата_окончания" ColumnName="Дата_окончания" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Договор_на_продажу">
+      <EntityTypeMapping TypeName="DataBaseModel1.Договор_на_продажу">
+        <MappingFragment StoreEntitySet="Договор_на_продажу">
+          <ScalarProperty Name="Код_договора" ColumnName="Код_договора" />
+          <ScalarProperty Name="Экспонат" ColumnName="Экспонат" />
+          <ScalarProperty Name="Цена_экспоната" ColumnName="Цена_экспоната" />
+          <ScalarProperty Name="Покупатель" ColumnName="Покупатель" />
+          <ScalarProperty Name="Налог" ColumnName="Налог" />
+          <ScalarProperty Name="Комиссия" ColumnName="Комиссия" />
+          <ScalarProperty Name="Доход_галереи" ColumnName="Доход_галереи" />
+          <ScalarProperty Name="Гонорар" ColumnName="Гонорар" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Договор_с_автором">
+      <EntityTypeMapping TypeName="DataBaseModel1.Договор_с_автором">
+        <MappingFragment StoreEntitySet="Договор_с_автором">
+          <ScalarProperty Name="Номер" ColumnName="Номер" />
+          <ScalarProperty Name="Автор" ColumnName="Автор" />
+          <ScalarProperty Name="Экспонат" ColumnName="Экспонат" />
+          <ScalarProperty Name="Цена_оплаты_услуг" ColumnName="Цена_оплаты_услуг" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Клиент">
+      <EntityTypeMapping TypeName="DataBaseModel1.Клиент">
+        <MappingFragment StoreEntitySet="Клиент">
+          <ScalarProperty Name="Код_клиента" ColumnName="Код_клиента" />
+          <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+          <ScalarProperty Name="Статус" ColumnName="Статус" />
+          <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+          <ScalarProperty Name="Серия_паспорта" ColumnName="Серия_паспорта" />
+          <ScalarProperty Name="Номер_паспорта" ColumnName="Номер_паспорта" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Экспонат">
+      <EntityTypeMapping TypeName="DataBaseModel1.Экспонат">
+        <MappingFragment StoreEntitySet="Экспонат">
+          <ScalarProperty Name="Код_экспоната" ColumnName="Код экспоната" />
+          <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+          <ScalarProperty Name="Вид_искусства" ColumnName="Вид искусства" />
+          <ScalarProperty Name="Изображение" ColumnName="Изображение" />
+          <ScalarProperty Name="Срок_экспонирования" ColumnName="Срок экспонирования" />
+          <ScalarProperty Name="Статус" ColumnName="Статус" />
+          <ScalarProperty Name="Код_выставки" ColumnName="Код выставки" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert_User" FunctionName="Хранилище DataBaseModel1.Insert_User" />
+  </EntityContainerMapping>
+</Mapping>
